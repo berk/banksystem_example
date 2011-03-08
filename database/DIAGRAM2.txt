@@ -1,0 +1,11 @@
+/*
+   Tuesday, April 11, 2006 3:49:56 PM
+   User: 
+   Server: (local)
+   Database: bank_system
+   Application: MS SQLEM - Data Tools
+*/
+
+TransactionLog (not on the diagram) (will be deleted)
+Customer
+Account

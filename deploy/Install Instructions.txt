@@ -1,0 +1,9 @@
+In order to run the server outside of eclipse, follow these steps:
+
+1. copy "deploy" and "lib" folders to the machine where you want to run the bank server
+2. edit the "deploy/run.bat" file and change the following line
+	SET ROOTPATH=[Path to where you copied the two folders in step 1] 
+3. edit the "deploy/banksystem.properties" file and make sure that the database properties are correct
+4. run the "deploy/run.bat" file 
+
+

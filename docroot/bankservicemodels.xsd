@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	xmlns="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.fusiontech.com/bankservice/model/xsd/1.0" 
+	xmlns:tns="http://www.fusiontech.com/bankservice/model/xsd/1.0"
+>
+	
+	<xs:element name="customer" type="tns:CustomerType" />
+	<xs:element name="card" type="tns:CardType" />
+	<xs:element name="account" type="tns:AccountType" />
+	<xs:element name="transaction" type="tns:TransactionType" />
+	
+	<xs:complexType name="CustomerType">
+		<xs:sequence>
+			<xs:element name="customerId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			
+			<xs:element name="card" type="tns:CardType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="account" type="tns:AccountType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CardType">
+		<xs:sequence>
+			<xs:element name="cardNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="cardPin" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="customerId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="expirationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>		
+	
+	<xs:complexType name="AccountType">
+		<xs:sequence>
+			<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="currentBalance" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="availableBalance" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			
+			<xs:element name="transactions" type="tns:TransactionType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>		
+
+	<xs:complexType name="TransactionType">
+		<xs:sequence>
+			<xs:element name="transactionId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="customerId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="dateCreated" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="amount" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="availableBalance" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="currentBalance" type="xs:double" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="clearFlag" type="xs:int" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>		
+	
+</schema>

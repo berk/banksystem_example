@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+xmlns="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:model="http://www.fusiontech.com/bankservice/model/xsd/1.0" 
+targetNamespace="http://www.fusiontech.com/bankservice/transports/xsd/1.0" 
+xmlns:tns="http://www.fusiontech.com/bankservice/transports/xsd/1.0">
+	
+	<xs:import
+		namespace="http://www.fusiontech.com/bankservice/model/xsd/1.0"
+		schemaLocation="bankservicemodels.xsd" />
+
+   	<xs:element name="verifyDeposit" type="tns:VerifyDepositTransportRequest" />
+   	<xs:element name="verifyDepositResponse" type="tns:VerifyDepositTransportResponse" />
+
+   	<xs:element name="deposit" type="tns:DepositTransportRequest" />
+   	<xs:element name="depositResponse" type="tns:DepositTransportResponse" />
+
+   	<xs:element name="getAccountBalance" type="tns:GetAccountBalanceTransportRequest" />
+   	<xs:element name="getAccountBalanceResponse" type="tns:GetAccountBalanceTransportResponse" />
+
+   	<xs:element name="getAccountList" type="tns:GetAccountListTransportRequest" />
+   	<xs:element name="getAccountListResponse" type="tns:GetAccountListTransportResponse" />
+
+   	<xs:element name="withdraw" type="tns:WithdrawTransportRequest" />
+   	<xs:element name="withdrawResponse" type="tns:WithdrawTransportResponse" />
+
+   	<xs:element name="transferBalance" type="tns:TransferBalanceTransportRequest" />
+   	<xs:element name="transferBalanceResponse" type="tns:TransferBalanceTransportResponse" />
+   	
+	<xs:complexType name="BaseTransportRequest">
+	</xs:complexType>
+
+	<xs:complexType name="BaseTransportResponse">
+		<xs:sequence>
+			<xs:element name="errorId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="errorMsg" type="xs:string" minOccurs="0"  maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TransactionTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:BaseTransportRequest">
+				<xs:sequence>
+					<xs:element name="cardNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="cardPin" type="xs:int" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransactionTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:BaseTransportResponse">
+				<xs:sequence>
+					<xs:element name="transaction" type="model:TransactionType" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VerifyDepositTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+				<xs:sequence>
+					<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="amount" type="xs:double" minOccurs="0"  maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VerifyDepositTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:BaseTransportResponse">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="DepositTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+				<xs:sequence>
+					<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="amount" type="xs:double" minOccurs="0"  maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="DepositTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportResponse">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GetAccountBalanceTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+				<xs:sequence>
+					<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GetAccountBalanceTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportResponse">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransferBalanceTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+				<xs:sequence>
+					<xs:element name="accountFrom" type="xs:int" minOccurs="0"  maxOccurs="1"/>
+					<xs:element name="accountTo" type="xs:int" minOccurs="0"  maxOccurs="1"/>
+					<xs:element name="amount" type="xs:double" minOccurs="0"  maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransferBalanceTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportResponse">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="GetAccountListTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GetAccountListTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:BaseTransportResponse">
+				<xs:sequence>
+					<xs:element name="account" type="model:AccountType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+	
+	<xs:complexType name="WithdrawTransportRequest">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportRequest">
+				<xs:sequence>
+					<xs:element name="accountId" type="xs:int" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="amount" type="xs:double" minOccurs="0"  maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="WithdrawTransportResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TransactionTransportResponse">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>		
+
+</schema>

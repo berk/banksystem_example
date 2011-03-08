@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+  Copyright 2004 Sun Microsystems, Inc. All rights reserved.
+-->
+<project basedir="." default="run">
+
+	<property name="project.root" value=".." />
+	<property name="project.src" value="${project.root}/src" />
+	<property name="project.xsd" value="${project.root}/docroot" />
+	<property name="project.package.transports" value="com.fusiontech.bank.transports" />
+	<property name="project.package.model" value="com.fusiontech.bank.model" />
+
+	<property name="project.model.path" value="${project.src}/com/fusiontech/bank/model" />
+	<property name="project.transports.path" value="${project.src}/com/fusiontech/bank/transports" />
+
+	<path id="classpath">
+		<pathelement path="src" />
+		<pathelement path="classes" />
+		<fileset dir="${project.root}" includes="lib/*.jar" />
+		<fileset dir="${project.root}" includes="lib/commons/*.jar" />
+		<fileset dir="${project.root}" includes="lib/endorsed/*.jar" />
+		<fileset dir="${project.root}" includes="lib/jaxb/*.jar" />
+		<fileset dir="${project.root}" includes="lib/jdbc/*.jar" />
+		<fileset dir="${project.root}" includes="lib/jetty/*.jar" />
+		<fileset dir="${project.root}" includes="lib/xml/*.jar" />
+	</path>
+
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath refid="classpath" />
+	</taskdef>
+
+	<!-- generate Java source files -->
+	<target name="run" description="Generate Java source files">
+		<echo message="Generate classes from schema..." />
+		<mkdir dir="${project.src}" />
+
+		<delete dir="${project.model.path}" />
+		<delete dir="${project.transports.path}" />
+		
+		<xjc extension="true" binding="${project.xsd}/bankservice.xjb" target="${project.src}" >
+			<schema file="${project.xsd}/bankservicetransports.xsd"/>
+			<schema file="${project.xsd}/bankservicemodels.xsd"/>
+			<produces dir="${project.src}" includes="**/*.java" />
+		</xjc>
+		
+	</target>
+
+</project>
+
