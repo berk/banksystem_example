@@ -1,0 +1,38 @@
+== What is it?
+
+This application is an example of a WSDL based stand-alone web service written in Java.
+
+== Technologies
+
+It uses the following technologies:
+
+Java, XSD, Ant, WSDL, Jetty, MySQL (or other databases) 
+
+Here is what all those things mean:
+
+* XSD is used to define a schema for model object as well as web service request and response transports (in the docroot folder)
+* Ant build script uses JAXB to auto generate Java implementation for the model and transport objects (in the build folder)
+* JAXB is also used to serialize and deserialize web service requests and responses.
+* J2EE Servlet is used to generate a UI for an admin interface that returns HTML data for browser rendering. (Struts or other framework could be used for the admin)
+* WSDL for defining the web service types, ports and operations. This file can be used to generate a Client SDK Proxy code.
+* Jetty is used as an embedded web server that routes all requests and responses.
+* MySQL is used as the database to store the data.
+
+== What is it for?
+
+This application demonstrates a few interesting concepts:
+
+* It produces a single Jar file that can be run as a stand-alone web service. 
+You could run as many of these stand alone web service instances as you would like 
+on a single machine or on multiple servers with a load balancer in front of them. 
+
+* There is actually very little coding that had to be done in order to get this example running. 
+The definitions of the application models are in the schema files. 99% of the Java code is auto generated using Ant and JAXB.
+JAXB is also used to deserialize incoming requests and serialize outgoing responses using XML.
+
+* It clearly demonstrates a 3-tier application structure: Request/Response Facade, Model objects and DAO objects. 
+
+== What's next?
+
+I am going to reproduce the similar application using Clojure, ClojureQL, Ring and Cake and show that the amount of code can be reduced by 95% !!!
+   
