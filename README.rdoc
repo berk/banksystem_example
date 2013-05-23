@@ -32,7 +32,3 @@ JAXB is also used to deserialize incoming requests and serialize outgoing respon
 
 * It clearly demonstrates a 3-tier application structure: Request/Response Facade, Model objects and DAO objects. 
 
-== What's next?
-
-I am going to reproduce the similar application using Clojure, ClojureQL, Ring and Cake and show that the amount of code can be reduced by 95% !!!
-   
